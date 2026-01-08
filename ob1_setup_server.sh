@@ -26,4 +26,20 @@ pip install --upgrade pip
 pip install -U torch==2.7.0 torchvision==0.22.0 --index-url https://download.pytorch.org/whl/cu128
 pip install isaaclab[isaacsim,all]==2.3.0 --extra-index-url https://pypi.nvidia.com
 
+# test isaacsim works
 OMNI_KIT_ALLOW_ROOT=1 isaacsim
+
+# kill isaacsim and install Gr00t
+git config --global url."https://github.com/".insteadOf "git@github.com:"
+git submodule update --init --recursive
+
+# Within IsaacLabEvalTasks directory
+cd submodules/Isaac-GR00T
+pip install --upgrade setuptools
+pip install -e .[base]
+pip install --no-build-isolation flash-attn==2.7.1.post4
+export PYTHONPATH=$PYTHONPATH:$INSTALL_DIR/IsaacLabEvalTasks/submodules/Isaac-GR00T
+
+python -c "import gr00t; print('gr00t imported successfully')"
+# Within IsaacLabEvalTasks directory
+python -m pip install -e source/isaaclab_eval_tasks
