@@ -58,7 +58,7 @@ hf download --repo-type dataset $DATASET --local-dir $DATASET_ROOT_DIR
 pip install pin-pink 
 conda install pinocchio -c conda-forge
 conda install -c conda-forge libstdcxx-ng
-pip install "numpy<2"
+pip install "numpy<2.0.0,>=1.23.5" "ml-dtypes~=0.2.0"
 # Within IsaacLabEvalTasks directory
 # Assume the post-trained policy checkpoint with model files are under CKPTS_PATH
 export LD_LIBRARY_PATH=/ob1_ws/conda/envs/env_isaaclab/lib:$LD_LIBRARY_PATH
