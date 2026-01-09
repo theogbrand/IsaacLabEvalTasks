@@ -46,13 +46,14 @@ python -m pip install -e source/isaaclab_eval_tasks
 
 curl -LsSf https://hf.co/cli/install.sh | bash
 source ~/.bashrc
-export CKPT="nvidia/GR00T-N1-2B-tuned-Nut-Pouring-task"
-export CKPT_LOCAL_DIR="/ob1_ws/hf/ckpts"
+# export CKPT="nvidia/GR00T-N1-2B-tuned-Nut-Pouring-task"
+export CKPT="nvidia/GR00T-N1-2B-tuned-Exhaust-Pipe-Sorting-task"
+export CKPT_LOCAL_DIR="/ob1_ws/hf/ckpts/$CKPT"
 hf download $CKPT --local-dir $CKPT_LOCAL_DIR
 
 # Download dir to get the HDF5 files required to run sim eval
 export DATASET="nvidia/PhysicalAI-GR00T-Tuned-Tasks"
-export DATASET_ROOT_DIR="/ob1_ws/hf/datasets/PhysicalAI-GR00T-Tuned-Tasks" 
+export DATASET_ROOT_DIR="/ob1_ws/hf/datasets/PhysicalAI-GR00T-Tuned-Tasks/" 
 hf download --repo-type dataset $DATASET --local-dir $DATASET_ROOT_DIR
 
 pip install pin-pink 
@@ -72,5 +73,18 @@ python scripts/evaluate_gn1.py \
     --eval_file_path $EVAL_RESULTS_FNAME \
     --model_path $CKPTS_PATH \
     --rollout_length 30 \
+    --seed 10 \
+    --max_num_rollouts 100
+
+export CKPTS_PATH="/ob1_ws/hf/ckpts/nvidia/GR00T-N1-2B-tuned-Exhaust-Pipe-Sorting-task"
+export EVAL_RESULTS_FNAME="/ob1_ws/IsaacLabEvalTasks/eval_results/eval_pipesorting.json"
+python scripts/evaluate_gn1.py \
+    --num_feedback_actions 16 \
+    --num_envs 10 \
+    --task_name pipesorting \
+    --eval_file_path $EVAL_RESULTS_FNAME \
+    --checkpoint_name gr00t-n1-2b-tuned-pipesorting \
+    --model_path $CKPTS_PATH \
+    --rollout_length 20 \
     --seed 10 \
     --max_num_rollouts 100
