@@ -19,7 +19,11 @@ import gymnasium as gym
 
 from isaaclab_tasks.utils import import_packages
 
-from .manipulation.pick_place import exhaustpipe_gr1t2_closedloop_env_cfg, nutpour_gr1t2_closedloop_env_cfg
+from .manipulation.pick_place import (
+    exhaustpipe_gr1t2_closedloop_env_cfg,
+    nutpour_gr1t2_closedloop_env_cfg,
+    tcr_bussing_easy_gr1t2_closedloop_env_cfg,
+)
 
 ##
 # Register Gym environments.
@@ -35,6 +39,14 @@ gym.register(
     entry_point="isaaclab.envs:ManagerBasedRLEnv",
     kwargs={
         "env_cfg_entry_point": nutpour_gr1t2_closedloop_env_cfg.NutPourGR1T2ClosedLoopEnvCfg,
+    },
+)
+
+gym.register(
+    id="Isaac-TcrBussingEasy-GR1T2-ClosedLoop-v0",
+    entry_point="isaaclab.envs:ManagerBasedRLEnv",
+    kwargs={
+        "env_cfg_entry_point": tcr_bussing_easy_gr1t2_closedloop_env_cfg.TcrBussingEasyGR1T2ClosedLoopEnvCfg,
     },
 )
 

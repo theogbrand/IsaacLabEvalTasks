@@ -39,6 +39,13 @@ class EvalTaskConfig(Enum):
         "exhaust_pipe_sorting_task.hdf5",
         2   # 1 is reserved for data validity check, following GR00T-N1 guidelines.
     )
+    TCRBUSSINGEASY = (
+        "Isaac-TcrBussingEasy-GR1T2-ClosedLoop-v0",
+        "/ob1_ws/hf/ckpts/GR00T_N1_2B_tuned_tcr_bussing_easy",
+        "Pick up the unwanted trash items on the surface of the sink and place it in the box below the sink",
+        "GR00T_N1_2B_tuned_tcr_bussing_easy.hdf5",
+        3   # Task index 3, following the pattern (0=nutpouring, 2=pipesorting)
+    )
 
     def __init__(self, task: str, model_path: str, language_instruction: str, hdf5_name: str, task_index: int):
         self.task = task
