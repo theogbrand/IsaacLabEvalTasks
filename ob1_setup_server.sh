@@ -49,3 +49,17 @@ source ~/.bashrc
 export CKPT="nvidia/GR00T-N1-2B-tuned-Nut-Pouring-task"
 export CKPT_LOCAL_DIR="/ob1_ws/hf/ckpts"
 hf download $CKPT --local-dir $CKPT_LOCAL_DIR
+
+# Within IsaacLabEvalTasks directory
+# Assume the post-trained policy checkpoints are under CKPTS_PATH
+export CKPTS_PATH="/ob1_ws/hf/ckpts/GR00T-N1-2B-tuned-Nut-Pouring-task"
+export EVAL_RESULTS_FNAME="/ob1_ws/IsaacLabEvalTasks/eval_results/eval_nutpouring.json"
+python scripts/evaluate_gn1.py \
+    --num_feedback_actions 16 \
+    --num_envs 10 \
+    --task_name nutpouring \
+    --eval_file_path $EVAL_RESULTS_FNAME \
+    --model_path $CKPTS_PATH \
+    --rollout_length 30 \
+    --seed 10 \
+    --max_num_rollouts 100
