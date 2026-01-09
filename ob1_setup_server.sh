@@ -50,8 +50,13 @@ export CKPT="nvidia/GR00T-N1-2B-tuned-Nut-Pouring-task"
 export CKPT_LOCAL_DIR="/ob1_ws/hf/ckpts"
 hf download $CKPT --local-dir $CKPT_LOCAL_DIR
 
+# Download dir to get the HDF5 files required to run sim eval
+export DATASET="nvidia/PhysicalAI-GR00T-Tuned-Tasks"
+export DATASET_ROOT_DIR="/ob1_ws/hf/datasets/PhysicalAI-GR00T-Tuned-Tasks" 
+hf download --repo-type dataset $DATASET --local-dir $DATASET_ROOT_DIR
+
 # Within IsaacLabEvalTasks directory
-# Assume the post-trained policy checkpoints are under CKPTS_PATH
+# Assume the post-trained policy checkpoint with model files are under CKPTS_PATH
 export CKPTS_PATH="/ob1_ws/hf/ckpts/GR00T-N1-2B-tuned-Nut-Pouring-task"
 export EVAL_RESULTS_FNAME="/ob1_ws/IsaacLabEvalTasks/eval_results/eval_nutpouring.json"
 python scripts/evaluate_gn1.py \
