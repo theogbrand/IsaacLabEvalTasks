@@ -2,7 +2,7 @@ git config --global user.name ob1
 git config --global user.email ongjjbrandon@gmail.com
 
 apt update
-apt install ffmpeg libsm6 libxext6 tmux
+apt install ffmpeg libsm6 libxext6 tmux vim
 
 mkdir -p /ob1_ws/miniconda3
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /ob1_ws/miniconda3/miniconda.sh
@@ -43,3 +43,9 @@ export PYTHONPATH=$PYTHONPATH:$INSTALL_DIR/IsaacLabEvalTasks/submodules/Isaac-GR
 python -c "import gr00t; print('gr00t imported successfully')"
 # Within IsaacLabEvalTasks directory
 python -m pip install -e source/isaaclab_eval_tasks
+
+curl -LsSf https://hf.co/cli/install.sh | bash
+source ~/.bashrc
+export CKPT="nvidia/GR00T-N1-2B-tuned-Nut-Pouring-task"
+export CKPT_LOCAL_DIR="/ob1_ws/hf/ckpts"
+hf download $CKPT --local-dir $CKPT_LOCAL_DIR
