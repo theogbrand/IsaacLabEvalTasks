@@ -102,3 +102,7 @@ class ExhaustPipeGR1T2ClosedLoopEnvCfg(ExhaustPipeGR1T2BaseEnvCfg):
         # WAR to skip while loop bug after calling env.reset() followed by env.sim.reset()
         # https://github.com/isaac-sim/IsaacLab-Internal/blob/devel/source/isaaclab/isaaclab/envs/manager_based_env.py#L311C13-L311C53
         self.wait_for_textures = False
+
+        # Disable image observation - camera is accessed directly in closed-loop evaluation
+        # This avoids TiledCamera data not being ready during observation manager initialization
+        self.observations.policy.robot_pov_cam = None

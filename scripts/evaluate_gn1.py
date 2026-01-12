@@ -40,7 +40,16 @@ app_launcher = AppLauncher(
 )
 simulation_app = app_launcher.app
 
+import carb
 import gymnasium as gym
+
+# WAR: Initialize dataWindowNDC settings to prevent NoneType error in replicator's _resize_data_for_overscan
+# These settings must be set after AppLauncher but before environment creation
+carb_settings = carb.settings.get_settings()
+carb_settings.set("/rtx/dataWindowNDC/0", 0.0)
+carb_settings.set("/rtx/dataWindowNDC/1", 0.0)
+carb_settings.set("/rtx/dataWindowNDC/2", 1.0)
+carb_settings.set("/rtx/dataWindowNDC/3", 1.0)
 
 from closed_loop_policy import create_sim_environment
 from evaluators.gr00t_n1_evaluator import Gr00tN1Evaluator
